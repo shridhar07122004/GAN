@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Gallery · Fashion GAN Studio{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <p class="eyebrow">ARCHIVE</p>
+  <h1>Generated design sheets</h1>
+  <p>Every sheet contains 16 fashion concepts generated from a new random noise vector.</p>
+</section>
+
+{% if images %}
+  <section class="gallery-grid">
+    {% for image in images %}
+      <figure>
+        <img src="{{ url_for('output_file', filename=image) }}" alt="Generated Fashion-MNIST design sheet {{ loop.index }}">
+        <figcaption>{{ image.replace('design_', '').replace('.png', '').replace('_', ' · ') }}</figcaption>
+      </figure>
+    {% endfor %}
+  </section>
+{% else %}
+  <section class="empty-state">
+    <h2>No design sheets yet.</h2>
+    <p>Train the model, then use the generator to create your first sheet.</p>
+    <a class="button" href="{{ url_for('home') }}">Go to generator</a>
+  </section>
+{% endif %}
+{% endblock %}
